@@ -7,6 +7,10 @@ if (localStorage.getItem("users") === null) {
   localStorage.setItem("users", "");
 }
 
+if (localStorage.getItem("categories") === null) {
+  createCategories();
+}
+
 if (JSON.parse(localStorage.getItem("findLoggedInUser")) === false) {
   wrapper.style.display = "block";
 }
