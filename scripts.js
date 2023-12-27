@@ -1,48 +1,46 @@
 import questions from "./questions.js";
-let wrapper=document.querySelector("#wrapper")
-wrapper.style.display="none"
+let wrapper = document.querySelector("#wrapper");
+wrapper.style.display = "none";
 
 //check if users data exists in storage
 if (localStorage.getItem("users") === null) {
   localStorage.setItem("users", "");
 }
 
-if(JSON.parse(localStorage.getItem("findLoggedInUser")) === false){
-wrapper.style.display="block"
+if (JSON.parse(localStorage.getItem("findLoggedInUser")) === false) {
+  wrapper.style.display = "block";
 }
 //.....................Akshat code....................................
-else{
+else {
   document.querySelector("#forms").style.display = "none";
-wrapper.style.display="flex"
+  wrapper.style.display = "flex";
 
   document.querySelector("#selectCategory").style.display = "flex";
   const catArr = JSON.parse(localStorage.getItem("categories"));
 
-catArr.forEach((category) => {
-const para = document.createElement("p");
-para.classList.add("category");
-para.innerHTML = category;
-//add onclick/addeventlistener
-para.addEventListener("click", () => {
-quizStart(catArr);
-});
-document.querySelector("#selectCategory").append(para);
-});
-let logout=document.createElement("button")
-logout.innerHTML="logout"
-wrapper.append(logout)
-logout.addEventListener("click" ,()=>{
-  localStorage.setItem("findLoggedInUser",false)
-  window.location.href="index.html"
-})
+  catArr.forEach((category) => {
+    const para = document.createElement("p");
+    para.classList.add("category");
+    para.innerHTML = category;
+    //add onclick/addeventlistener
+    para.addEventListener("click", () => {
+      quizStart(catArr);
+    });
+    document.querySelector("#selectCategory").append(para);
+  });
+  let logout = document.createElement("button");
+  logout.innerHTML = "logout";
+  wrapper.append(logout);
+  logout.addEventListener("click", () => {
+    localStorage.setItem("findLoggedInUser", false);
+    window.location.href = "index.html";
+  });
 }
 //.......................Akshat code...................................
 
 //
 if (localStorage.getItem("findLoggedInUser") === null)
   localStorage.setItem("findLoggedInUser", false);
-
-  
 
 const registrationForm = document.querySelector(".register form");
 const loginForm = document.querySelector(".login form");
@@ -132,8 +130,6 @@ function loginUser(event) {
       isUserAllowed = true;
       localStorage.setItem("findLoggedInUser", true);
     }
-
-    
   });
 
   if (isUserAllowed) {
@@ -143,10 +139,6 @@ function loginUser(event) {
 
     // check if categories exist
     //if not, create them
-
-    if (localStorage.getItem("categories") === null) {
-      createCategories();
-    }
 
     const catArr = JSON.parse(localStorage.getItem("categories"));
 
@@ -164,7 +156,6 @@ function loginUser(event) {
     alert("Incorrect Credentials");
   }
 }
-
 
 function createCategories() {
   const categories = ["Sports", "Geography", "Programming", "Current Affairs"];
@@ -208,7 +199,7 @@ function quizStart(catArr) {
 
         currentQuestionNumber++;
         userAnswers.push(null);
-        console.log(currentQuestionNumber)
+        console.log(currentQuestionNumber);
 
         nextQuestion();
       }
@@ -234,8 +225,7 @@ function storeUserAnswer(event, userAnswers) {
   timer = 10;
   timerDiv.innerHTML = timer;
   currentQuestionNumber++;
-if(currentQuestionNumber<temp[0].qna.length)
-  nextQuestion();
+  if (currentQuestionNumber < temp[0].qna.length) nextQuestion();
 }
 
 //calculate user answers
