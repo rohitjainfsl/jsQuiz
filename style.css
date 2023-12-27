@@ -1,0 +1,146 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* #quizStart{
+    display: none;
+} */
+
+body{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+input{
+    border-radius: 10px;
+    /* border-color:rgb(201, 134, 9); */
+    border-style: solid;
+    /* background-color: wheat; */
+    padding:10px 70px;
+    margin:5px;
+    box-shadow: 10px 10px 10px darkslategray;
+
+}
+
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* margin:50px auto; */
+    width: 600px;
+    /* height: 196px; */
+    padding: 2rem 0;
+    /* margin: 20px auto; */
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px darkslategray;
+    text-align: center;
+    color: white !important;
+    background-color: darkcyan;
+    gap: 30px;
+}
+
+.form{
+    display:flex;
+    flex-direction: column;
+    gap: 200px;
+}
+
+.login{
+    box-shadow: 2px 2px 2px black;
+    padding: 20px;
+}
+
+.register{
+    box-shadow: 2px 2px 2px black;
+    padding: 20px;
+
+}
+
+
+.quiz{
+    display:flex;
+    flex-direction: column;
+    gap:20px;
+}
+#selectCategory{
+    border-style: solid;
+    border-color:#5f605f;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 2px 2px black;
+    border-radius: 10px;
+    padding: 5px;
+
+    /* flex-direction: column; */
+
+}
+
+.timer {
+    font-size: x-large;
+    color: black;
+    font-weight: 600;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.question{
+    color:gold;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+
+    font-size: 40px;
+    margin:10px;
+
+}
+
+#quizStart{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+}
+
+.options {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #5f605f;
+    color: orange;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 11px;
+    gap: 30px;
+}
+
+.button{
+    display: inline-block;
+}
+
+p.category {
+    padding: 20px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+button {
+    display:inline-block;
+    
+    /* width: 50%; */
+    padding: 7px 20px;
+    background-color: lavenderblush;
+    border-radius: 30px;
+    border: 0;
+    margin: auto;
+    font-size: 16px;
+    /* margin: 20px auto; */
+    font-weight: 600;
+    box-shadow: 10px 10px 10px darkslategray;
+
+}
+
