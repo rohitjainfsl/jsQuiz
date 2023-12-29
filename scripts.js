@@ -143,6 +143,7 @@ function loginUser(event) {
   if (isUserAllowed) {
     //log user in
     document.querySelector("#forms").style.display = "none";
+    // document.querySelector(".quiz").style.display = "flex";
     document.querySelector(".quiz").style.display = "flex";
 
     // check if categories exist
@@ -179,7 +180,13 @@ function loginUser(event) {
 //....................Add categories to local storage...........................
 
 function createCategories() {
-  const categories = ["Sports", "Geography", "Programming", "Current Affairs"];
+  const categories = [
+    "Sports",
+    "Geography",
+    "Programming",
+    "Current Affairs",
+    "Image Queries",
+  ];
   localStorage.setItem("categories", JSON.stringify(categories));
 }
 
@@ -240,8 +247,6 @@ function nextQuestion() {
   if (temp[0].qna[currentQuestionNumber].type === "image") {
     removeImages();
     optionsDiv.forEach((para, index) => {
-      // para.classList.add("image");
-      // document.querySelector(".options").append(para);
       const image = document.createElement("img");
       image.src = temp[0].qna[currentQuestionNumber].op[index];
       para.append(image);
@@ -266,7 +271,6 @@ function storeUserAnswer(event, userAnswers) {
   timer = 10;
   timerDiv.innerHTML = timer;
   currentQuestionNumber++;
-  // document.querySelectorAll(".option").style.pointerEvents = "none";
 
   if (currentQuestionNumber < temp[0].qna.length) nextQuestion();
 }
@@ -283,18 +287,6 @@ function calculateScore(userAnswers, actualAnswers) {
   });
   let answer = "You scored " + score + " out of " + actualAnswers.length;
 
-  //add logout button in calculate score ...........
-  let logout2 = document.createElement("button");
-  document.querySelector(".logout").style.display = "none";
-
-  logout2.innerHTML = "logout";
-  logout2.classList.add("logout");
-
-  wrapper.append(logout2);
-  logout2.addEventListener("click", () => {
-    localStorage.setItem("findLoggedInUser", false);
-    window.location.href = "index.html";
-  });
   //......................................................
   const totalScore = document.createElement("p");
   totalScore.innerHTML = answer;
@@ -310,3 +302,4 @@ function removeImages() {
     if (option.children.length > 0) option.children[0].remove();
   });
 }
+//................................................
