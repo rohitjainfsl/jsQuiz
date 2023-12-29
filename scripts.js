@@ -52,6 +52,7 @@ registrationForm.addEventListener("submit", registerUser);
 loginForm.addEventListener("submit", loginUser);
 
 const questionDiv = document.querySelector(".question");
+const optionsParentDiv = document.querySelector(".options");
 const optionsDiv = document.querySelectorAll(".option");
 const userAnswers = [];
 let currentQuestionNumber = 0;
@@ -157,7 +158,6 @@ function loginUser(event) {
       para.addEventListener("click", (e) => {
         quizStart(e, catArr);
       });
-
       document.querySelector("#selectCategory").append(para);
     });
 
@@ -183,7 +183,8 @@ function createCategories() {
 }
 
 //.............................................................................
-
+document.querySelector("#quizStart").style.display = "none";
+document.querySelector(".logout").style.display = "none";
 function quizStart(e, catArr) {
   //add click event on options
   optionsDiv.forEach((para) => {
@@ -201,6 +202,7 @@ function quizStart(e, catArr) {
 
   document.querySelector("#selectCategory").style.display = "none";
   document.querySelector("#quizStart").style.display = "flex";
+  document.querySelector(".logout").style.display = "inline-block";
 
   //display first question and its options
   nextQuestion();
@@ -231,11 +233,53 @@ function quizStart(e, catArr) {
 }
 
 // to display the question and its options
+// function nextQuestion() {
+//   questionDiv.innerHTML = temp[0].qna[currentQuestionNumber].q;
+//   console.log(temp[0].qna[currentQuestionNumber].type);
+
+//   if (temp[0].qna[currentQuestionNumber].type === "image") {
+//     optionsDiv.forEach((para, index) => {
+//       const image = document.createElement("img");
+//       image.src = temp[0].qna[currentQuestionNumber].op[index];
+//       para.append(image);
+//     });
+//   } else {
+//     optionsDiv.forEach((para, index) => {
+//       para.innerHTML = temp[0].qna[currentQuestionNumber].op[index];
+//     });
+//   }
+// }
+
 function nextQuestion() {
   questionDiv.innerHTML = temp[0].qna[currentQuestionNumber].q;
-  optionsDiv.forEach((para, index) => {
-    para.innerHTML = temp[0].qna[currentQuestionNumber].op[index];
-  });
+  if (temp[0].qna[currentQuestionNumber].type === "image") {
+    // document.querySelectorAll(".option").style.display = "none";
+
+    // document.querySelector(".option1").style.display = "none";
+    // document.querySelector(".option2").style.display = "none";
+    // document.querySelector(".option3").style.display = "none";
+    // document.querySelector(".option4").style.display = "none";
+
+    optionsDiv.forEach((para, index) => {
+      const div = document.createElement("div");
+      // div.classList.add("image");
+      // document.querySelector(".options").append(div);
+      para.classList.add("image");
+      document.querySelector(".options").append(para);
+      const image = document.createElement("img");
+      image.src = temp[0].qna[currentQuestionNumber].op[index];
+      // div.append(image);
+      para.append(image);
+      console.log("image");
+    });
+  } else {
+    // document.querySelector(".image").style.display = "none";
+
+    optionsDiv.forEach((para, index) => {
+      para.innerHTML = temp[0].qna[currentQuestionNumber].op[index];
+    });
+    console.log("string");
+  }
 }
 
 //.............................................................................
@@ -249,6 +293,8 @@ function storeUserAnswer(event, userAnswers) {
   timer = 10;
   timerDiv.innerHTML = timer;
   currentQuestionNumber++;
+  // document.querySelectorAll(".option").style.pointerEvents = "none";
+
   if (currentQuestionNumber < temp[0].qna.length) nextQuestion();
 }
 
