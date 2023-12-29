@@ -26,12 +26,14 @@
               type="email"
               placeholder="Enter Email"
               id="lemail"
+              required
               autofocus
             /><br />
             <input
               type="password"
               placeholder="Enter Password"
               id="lpass"
+              required
             /><br />
             <button type="submit">Login</button>
           </form>
@@ -39,17 +41,33 @@
 
         <div class="register">
           <form action="">
-            <input type="text" placeholder="Enter Name" id="rname" /><br />
-            <input type="email" placeholder="Enter Email" id="remail" /><br />
             <input
-              type="password"
-              placeholder="Choose a password"
-              id="rpass"
+              type="text"
+              placeholder="Enter Name"
+              id="rname"
+              required
+            /><br />
+            <input
+              type="email"
+              placeholder="Enter Email"
+              id="remail"
+              required
             /><br />
             <input
               type="password"
+              placeholder="Choose a password"
+              name="password"
+              id="rpass"
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}"
+              title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+              required
+            /><br />
+            <input
+              type="password"
+              name="confirm password"
               placeholder="Confirm password"
               id="rcpass"
+              required
             /><br />
             <button type="submit">Register</button>
           </form>

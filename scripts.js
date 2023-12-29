@@ -1,129 +1,113 @@
+//Import variable...................
 import questions from "./questions.js";
-let wrapper = document.querySelector("#wrapper");
 
-//check if users data exists in storage
-if (localStorage.getItem("users") === null) {
-  localStorage.setItem("users", "");
-}
+//.........................................................................
 
-if (localStorage.getItem("categories") === null) {
-  createCategories();
-}
-
-if (JSON.parse(localStorage.getItem("findLoggedInUser")) === false) {
-  document.querySelector("#forms").style.display = "flex";
-  document.querySelector(".quiz").style.display = "none";
-  // console.log(JSON.parse(localStorage.getItem("findLoggedInUser")));
-} else {
-  // console.log(JSON.parse(localStorage.getItem("findLoggedInUser")));
-  document.querySelector(".quiz").style.display = "flex";
-  document.querySelector("#forms").style.display = "none";
-  // document.querySelector("#selectCategory").style.display = "flex";
-  const catArr = JSON.parse(localStorage.getItem("categories"));
-  console.log(catArr);
-
-  catArr.forEach((category) => {
-    const para = document.createElement("p");
-    para.classList.add("category");
-    para.innerHTML = category;
-    //add onclick/addeventlistener
-    para.addEventListener("click", (e) => {
-      quizStart(e, catArr);
-    });
-    document.querySelector("#selectCategory").append(para);
-  });
-  let logout = document.createElement("button");
-  logout.classList.add("logout");
-  logout.innerHTML = "Logout";
-  logout.addEventListener("click", () => {
-    localStorage.setItem("findLoggedInUser", false);
-    window.location.href = "index.html";
-  });
-  wrapper.append(logout);
-}
-
-if (localStorage.getItem("findLoggedInUser") === null)
-  localStorage.setItem("findLoggedInUser", false);
-
+//Const variable....................
+const questionDiv = document.querySelector(".question");
+const optionsDiv = document.querySelectorAll(".option");
+const userAnswers = [];
+const timerDiv = document.querySelector(".timer");
 const registrationForm = document.querySelector(".register form");
 const loginForm = document.querySelector(".login form");
 
-registrationForm.addEventListener("submit", registerUser);
-loginForm.addEventListener("submit", loginUser);
+//.........................................................................
 
-const questionDiv = document.querySelector(".question");
-const optionsParentDiv = document.querySelector(".options");
-const optionsDiv = document.querySelectorAll(".option");
-const userAnswers = [];
+//Let variable......................
+let wrapper = document.querySelector("#wrapper");
 let currentQuestionNumber = 0;
 let temp;
 let timer = 10;
-const timerDiv = document.querySelector(".timer");
 
-//.............................................................................
+//.........................................................................
 
+//addEventListener..................
+//.........................................................................
+
+//Register.....
+
+registrationForm.addEventListener("submit", registerUser);
 function registerUser(event) {
   event.preventDefault();
   //get data from local storage
   // and check if email exists
 
-  if (localStorage.getItem("users") !== null) {
-    if (localStorage.getItem("users") !== "") {
-      // Get existing users details
-      const usersArr = JSON.parse(localStorage.getItem("users"));
+  if (
+    document.getElementById("rpass").value ===
+    document.getElementById("rcpass").value
+  ) {
+    console.log(
+      document.getElementById("rpass").value,
+      document.getElementById("rcpass").value
+    );
 
-      const rname = document.querySelector("#rname").value;
-      const remail = document.querySelector("#remail").value;
-      const rpass = document.querySelector("#rpass").value;
-      const rcpass = document.querySelector("#rcpass").value;
+    //...............................................
+    if (localStorage.getItem("users") !== null) {
+      if (localStorage.getItem("users") !== "") {
+        // Get existing users details
+        const usersArr = JSON.parse(localStorage.getItem("users"));
 
-      //Check if email which user entered in form
-      // exists in users details
+        const rname = document.querySelector("#rname").value;
+        const remail = document.querySelector("#remail").value;
+        const rpass = document.querySelector("#rpass").value;
+        const rcpass = document.querySelector("#rcpass").value;
 
-      let emailExists = false;
+        //Check if email which user entered in form
+        // exists in users details
 
-      usersArr.forEach((user) => {
-        if (user.remail === remail) emailExists = true;
-      });
+        let emailExists = false;
 
-      if (emailExists === false) {
+        usersArr.forEach((user) => {
+          if (user.remail === remail) emailExists = true;
+        });
+
+        if (emailExists === false) {
+          const obj = {
+            rname: rname,
+            remail: remail,
+            rpass: rpass,
+            rcpass: rcpass,
+          };
+          usersArr.push(obj);
+          localStorage.setItem("users", JSON.stringify(usersArr));
+          document.querySelector(".register form").submit();
+        } else {
+          alert("Email already exists");
+        }
+      } else {
+        //This is the very first user, simply put the data in
+        const rname = document.querySelector("#rname").value;
+        const remail = document.querySelector("#remail").value;
+        const rpass = document.querySelector("#rpass").value;
+        const rcpass = document.querySelector("#rcpass").value;
+
         const obj = {
           rname: rname,
           remail: remail,
           rpass: rpass,
           rcpass: rcpass,
         };
+
+        const usersArr = [];
         usersArr.push(obj);
         localStorage.setItem("users", JSON.stringify(usersArr));
+
         document.querySelector(".register form").submit();
-      } else {
-        alert("Email already exists");
       }
-    } else {
-      //This is the very first user, simply put the data in
-      const rname = document.querySelector("#rname").value;
-      const remail = document.querySelector("#remail").value;
-      const rpass = document.querySelector("#rpass").value;
-      const rcpass = document.querySelector("#rcpass").value;
-
-      const obj = {
-        rname: rname,
-        remail: remail,
-        rpass: rpass,
-        rcpass: rcpass,
-      };
-
-      const usersArr = [];
-      usersArr.push(obj);
-      localStorage.setItem("users", JSON.stringify(usersArr));
-
-      document.querySelector(".register form").submit();
     }
+    //...............................................
+  } else {
+    alert("Password & Confirm Password are not same");
   }
 }
 
-//................................Login User function.................................
+//Registration form validation............................................
 
+//.........................................................................
+
+//...........................Login User function...........................
+//Login........
+loginForm.addEventListener("submit", loginUser);
 function loginUser(event) {
   event.preventDefault();
   const usersArr = JSON.parse(localStorage.getItem("users"));
@@ -162,19 +146,69 @@ function loginUser(event) {
       });
       document.querySelector("#selectCategory").append(para);
     });
-
-    //LOGOUT BUTTON
-    let logout = document.createElement("button");
-    logout.classList.add("logout");
-    logout.innerHTML = "Logout";
-    logout.addEventListener("click", () => {
-      localStorage.setItem("findLoggedInUser", false);
-      window.location.href = "index.html";
-    });
-    wrapper.append(logout);
   } else {
     alert("Incorrect Credentials");
   }
+}
+//.........................................................................
+
+//Logout.......
+//LOGOUT BUTTON
+let logout = document.createElement("button");
+logout.classList.add("logout");
+logout.innerHTML = "Logout";
+logout.addEventListener("click", () => {
+  localStorage.setItem("findLoggedInUser", false);
+  window.location.href = "index.html";
+});
+wrapper.append(logout);
+
+//.........................................................................
+
+//Condition for swapping form and quiz.....................................
+if (JSON.parse(localStorage.getItem("findLoggedInUser")) === false) {
+  document.querySelector("#forms").style.display = "flex";
+  document.querySelector(".quiz").style.display = "none";
+  // console.log(JSON.parse(localStorage.getItem("findLoggedInUser")));
+} else {
+  // console.log(JSON.parse(localStorage.getItem("findLoggedInUser")));
+  document.querySelector(".quiz").style.display = "flex";
+  document.querySelector("#forms").style.display = "none";
+  // document.querySelector("#selectCategory").style.display = "flex";
+  const catArr = JSON.parse(localStorage.getItem("categories"));
+  console.log(catArr);
+
+  catArr.forEach((category) => {
+    const para = document.createElement("p");
+    para.classList.add("category");
+    para.innerHTML = category;
+    //add onclick/addeventlistener
+    para.addEventListener("click", (e) => {
+      quizStart(e, catArr);
+    });
+    document.querySelector("#selectCategory").append(para);
+  });
+  // let logout = document.createElement("button");
+  // logout.classList.add("logout");
+  // logout.innerHTML = "Logout";
+  // logout.addEventListener("click", () => {
+  //   localStorage.setItem("findLoggedInUser", false);
+  //   window.location.href = "index.html";
+  // });
+  wrapper.append(logout);
+}
+
+//.........................................................................
+
+//locatStorage......................
+//check if users data exists in storage
+if (localStorage.getItem("users") === null) {
+  localStorage.setItem("users", "");
+}
+
+//create categories if storage is null
+if (localStorage.getItem("categories") === null) {
+  createCategories();
 }
 
 //....................Add categories to local storage...........................
@@ -190,9 +224,14 @@ function createCategories() {
   localStorage.setItem("categories", JSON.stringify(categories));
 }
 
-//.............................................................................
-document.querySelector("#quizStart").style.display = "none";
-document.querySelector(".logout").style.display = "none";
+//check local storage empty condition
+if (localStorage.getItem("findLoggedInUser") === null) {
+  localStorage.setItem("findLoggedInUser", false);
+}
+//.........................................................................
+
+//User define function....................................................
+//Start quiz function.................
 function quizStart(e, catArr) {
   //add click event on options
   optionsDiv.forEach((para) => {
@@ -239,6 +278,8 @@ function quizStart(e, catArr) {
     } else timerDiv.innerHTML = --timer;
   }, 1000);
 }
+
+//.............................................................................
 
 // to display the question and its options
 
@@ -295,6 +336,7 @@ function calculateScore(userAnswers, actualAnswers) {
 }
 
 //..............................................
+
 //remove images
 function removeImages() {
   const options = document.querySelectorAll(".option");
@@ -302,4 +344,16 @@ function removeImages() {
     if (option.children.length > 0) option.children[0].remove();
   });
 }
+
+//................................................
+//.........................................................................
+
+//.............................................................................
+
+//.............................................................................
+document.querySelector("#quizStart").style.display = "none";
+document.querySelector(".logout").style.display = "none";
+
+//.............................................................................
+
 //................................................
