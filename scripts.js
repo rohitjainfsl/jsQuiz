@@ -154,6 +154,7 @@ function loginUser(event) {
       const para = document.createElement("p");
       para.classList.add("category");
       para.innerHTML = category;
+
       //add onclick/addeventlistener
       para.addEventListener("click", (e) => {
         quizStart(e, catArr);
@@ -233,48 +234,20 @@ function quizStart(e, catArr) {
 }
 
 // to display the question and its options
-// function nextQuestion() {
-//   questionDiv.innerHTML = temp[0].qna[currentQuestionNumber].q;
-//   console.log(temp[0].qna[currentQuestionNumber].type);
-
-//   if (temp[0].qna[currentQuestionNumber].type === "image") {
-//     optionsDiv.forEach((para, index) => {
-//       const image = document.createElement("img");
-//       image.src = temp[0].qna[currentQuestionNumber].op[index];
-//       para.append(image);
-//     });
-//   } else {
-//     optionsDiv.forEach((para, index) => {
-//       para.innerHTML = temp[0].qna[currentQuestionNumber].op[index];
-//     });
-//   }
-// }
 
 function nextQuestion() {
   questionDiv.innerHTML = temp[0].qna[currentQuestionNumber].q;
   if (temp[0].qna[currentQuestionNumber].type === "image") {
-    // document.querySelectorAll(".option").style.display = "none";
-
-    // document.querySelector(".option1").style.display = "none";
-    // document.querySelector(".option2").style.display = "none";
-    // document.querySelector(".option3").style.display = "none";
-    // document.querySelector(".option4").style.display = "none";
-
+    removeImages();
     optionsDiv.forEach((para, index) => {
-      const div = document.createElement("div");
-      // div.classList.add("image");
-      // document.querySelector(".options").append(div);
-      para.classList.add("image");
-      document.querySelector(".options").append(para);
+      // para.classList.add("image");
+      // document.querySelector(".options").append(para);
       const image = document.createElement("img");
       image.src = temp[0].qna[currentQuestionNumber].op[index];
-      // div.append(image);
       para.append(image);
       console.log("image");
     });
   } else {
-    // document.querySelector(".image").style.display = "none";
-
     optionsDiv.forEach((para, index) => {
       para.innerHTML = temp[0].qna[currentQuestionNumber].op[index];
     });
@@ -327,4 +300,13 @@ function calculateScore(userAnswers, actualAnswers) {
   totalScore.innerHTML = answer;
   totalScore.style.fontSize = "2rem";
   document.querySelector("#wrapper").append(totalScore);
+}
+
+//..............................................
+//remove images
+function removeImages() {
+  const options = document.querySelectorAll(".option");
+  options.forEach((option) => {
+    if (option.children.length > 0) option.children[0].remove();
+  });
 }
