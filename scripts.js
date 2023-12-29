@@ -1,44 +1,47 @@
 import questions from "./questions.js";
 let wrapper = document.querySelector("#wrapper");
-wrapper.style.display = "none";
 
 //check if users data exists in storage
 if (localStorage.getItem("users") === null) {
   localStorage.setItem("users", "");
 }
 
-if (JSON.parse(localStorage.getItem("findLoggedInUser")) === false) {
-  wrapper.style.display = "block";
+if (localStorage.getItem("categories") === null) {
+  createCategories();
 }
-//.....................Akshat code....................................
-else {
-  document.querySelector("#forms").style.display = "none";
-  wrapper.style.display = "flex";
 
-  document.querySelector("#selectCategory").style.display = "flex";
+if (JSON.parse(localStorage.getItem("findLoggedInUser")) === false) {
+  document.querySelector("#forms").style.display = "flex";
+  document.querySelector(".quiz").style.display = "none";
+  // console.log(JSON.parse(localStorage.getItem("findLoggedInUser")));
+} else {
+  // console.log(JSON.parse(localStorage.getItem("findLoggedInUser")));
+  document.querySelector(".quiz").style.display = "flex";
+  document.querySelector("#forms").style.display = "none";
+  // document.querySelector("#selectCategory").style.display = "flex";
   const catArr = JSON.parse(localStorage.getItem("categories"));
+  console.log(catArr);
 
   catArr.forEach((category) => {
     const para = document.createElement("p");
     para.classList.add("category");
     para.innerHTML = category;
     //add onclick/addeventlistener
-    para.addEventListener("click", () => {
-      quizStart(catArr);
+    para.addEventListener("click", (e) => {
+      quizStart(e, catArr);
     });
     document.querySelector("#selectCategory").append(para);
   });
   let logout = document.createElement("button");
-  logout.innerHTML = "logout";
-  wrapper.append(logout);
+  logout.classList.add("logout");
+  logout.innerHTML = "Logout";
   logout.addEventListener("click", () => {
     localStorage.setItem("findLoggedInUser", false);
     window.location.href = "index.html";
   });
+  wrapper.append(logout);
 }
-//.......................Akshat code...................................
 
-//
 if (localStorage.getItem("findLoggedInUser") === null)
   localStorage.setItem("findLoggedInUser", false);
 
@@ -55,6 +58,8 @@ let currentQuestionNumber = 0;
 let temp;
 let timer = 10;
 const timerDiv = document.querySelector(".timer");
+
+//.............................................................................
 
 function registerUser(event) {
   event.preventDefault();
@@ -116,6 +121,8 @@ function registerUser(event) {
   }
 }
 
+//................................Login User function.................................
+
 function loginUser(event) {
   event.preventDefault();
   const usersArr = JSON.parse(localStorage.getItem("users"));
@@ -135,7 +142,7 @@ function loginUser(event) {
   if (isUserAllowed) {
     //log user in
     document.querySelector("#forms").style.display = "none";
-    document.querySelector("#selectCategory").style.display = "flex";
+    document.querySelector(".quiz").style.display = "flex";
 
     // check if categories exist
     //if not, create them
@@ -147,22 +154,37 @@ function loginUser(event) {
       para.classList.add("category");
       para.innerHTML = category;
       //add onclick/addeventlistener
-      para.addEventListener("click", () => {
-        quizStart(catArr);
+      para.addEventListener("click", (e) => {
+        quizStart(e, catArr);
       });
+
       document.querySelector("#selectCategory").append(para);
     });
+
+    //LOGOUT BUTTON
+    let logout = document.createElement("button");
+    logout.classList.add("logout");
+    logout.innerHTML = "Logout";
+    logout.addEventListener("click", () => {
+      localStorage.setItem("findLoggedInUser", false);
+      window.location.href = "index.html";
+    });
+    wrapper.append(logout);
   } else {
     alert("Incorrect Credentials");
   }
 }
+
+//....................Add categories to local storage...........................
 
 function createCategories() {
   const categories = ["Sports", "Geography", "Programming", "Current Affairs"];
   localStorage.setItem("categories", JSON.stringify(categories));
 }
 
-function quizStart(catArr) {
+//.............................................................................
+
+function quizStart(e, catArr) {
   //add click event on options
   optionsDiv.forEach((para) => {
     para.addEventListener("click", (event) => {
@@ -173,7 +195,8 @@ function quizStart(catArr) {
   //GET QUESTIONS FROM APPROPRIATE CATEGORY
 
   temp = questions.filter((cat) => {
-    return cat.category === event.target.innerHTML;
+    return cat.category === e.target.innerHTML;
+    //discussion : event.target.innerHTML value ?? where it come from
   });
 
   document.querySelector("#selectCategory").style.display = "none";
@@ -210,11 +233,12 @@ function quizStart(catArr) {
 // to display the question and its options
 function nextQuestion() {
   questionDiv.innerHTML = temp[0].qna[currentQuestionNumber].q;
-
   optionsDiv.forEach((para, index) => {
     para.innerHTML = temp[0].qna[currentQuestionNumber].op[index];
   });
 }
+
+//.............................................................................
 
 //to store user answer
 function storeUserAnswer(event, userAnswers) {
@@ -228,6 +252,8 @@ function storeUserAnswer(event, userAnswers) {
   if (currentQuestionNumber < temp[0].qna.length) nextQuestion();
 }
 
+//.............................................................................
+
 //calculate user answers
 function calculateScore(userAnswers, actualAnswers) {
   let score = 0;
@@ -237,7 +263,22 @@ function calculateScore(userAnswers, actualAnswers) {
     }
   });
   let answer = "You scored " + score + " out of " + actualAnswers.length;
+
+  //add logout button in calculate score ...........
+  let logout2 = document.createElement("button");
+  document.querySelector(".logout").style.display = "none";
+
+  logout2.innerHTML = "logout";
+  logout2.classList.add("logout");
+
+  wrapper.append(logout2);
+  logout2.addEventListener("click", () => {
+    localStorage.setItem("findLoggedInUser", false);
+    window.location.href = "index.html";
+  });
+  //......................................................
   const totalScore = document.createElement("p");
   totalScore.innerHTML = answer;
+  totalScore.style.fontSize = "2rem";
   document.querySelector("#wrapper").append(totalScore);
 }

@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: Roboto, sans-serif;
 }
 /* #quizStart{
     display: none;
@@ -10,29 +11,25 @@
 body {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
+  justify-content: start;
   align-items: center;
-  gap: 0.5rem;
-  padding-bottom: 3rem;
+  gap: 0.05rem;
+  padding-bottom: 0.5rem;
   height: 100vh;
   background-color: goldenrod;
-  /* background: linear-gradient(gold, orange, orangered); */
   background: linear-gradient(greenyellow, yellow, green);
 }
 
 .heading h1 {
   font-family: "Poppins", sans-serif;
-  font-size: 6rem;
+  font-size: 5rem;
   font-weight: bold;
-  /* color: greenyellow; */
   color: green;
 }
 
 input {
   border-radius: 0.75rem;
-  /* border-color:rgb(201, 134, 9); */
   border-style: solid;
-  /* background-color: wheat; */
   padding: 0.75rem 4rem;
   margin: 0.5rem;
   box-shadow: 10px 10px 10px darkslategray;
@@ -43,43 +40,56 @@ input {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* margin:50px auto; */
   width: 650px;
-  /* height: 196px; */
-  padding: 2rem 0;
-  /* margin: 20px auto; */
+
+  padding: 1rem 0;
   border-radius: 10px;
   box-shadow: 10px 10px 10px darkslategray;
   text-align: center;
   color: white !important;
-  /* background-color: darkcyan; */
   background-color: green;
 
-  gap: 30px;
+  /* gap: 30px; */
 }
 
-.form {
+#forms {
   display: flex;
   flex-direction: column;
-  gap: 200px;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .login {
-  /* box-shadow: 2px 2px 2px black; */
-  padding: 20px;
+  box-shadow: 2px 2px 2px black;
+  border-style: solid;
+  border-color: darkgray;
+  border-radius: 1rem;
+  width: 100%;
+  padding: 1rem 2.5rem;
 }
 
 .register {
-  /* box-shadow: 2px 2px 2px black; */
-  padding: 20px;
-}
+  box-shadow: 2px 2px 2px black;
 
+  border-radius: 1rem;
+
+  border-color: darkgray;
+  border-style: solid;
+
+  width: 100%;
+
+  padding: 1rem 2.5rem;
+}
+button[type="submit"] {
+  margin-top: 0.5rem;
+}
 .quiz {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 1rem;
 }
 
 #selectCategory {
@@ -93,9 +103,6 @@ input {
   box-shadow: 2px 2px 2px black;
   border-radius: 10px;
   padding: 1rem;
-  /* width: 50%; */
-
-  /* flex-direction: column; */
 }
 
 .timer {
@@ -112,7 +119,7 @@ input {
   font-weight: 500;
 
   font-size: 30px;
-  margin: 10px;
+  margin: 0.8rem;
 }
 
 #quizStart {
@@ -120,29 +127,26 @@ input {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 0.5rem;
 }
 
 .options {
-  /* display: flex;
-  flex-wrap: wrap; */
-
   display: grid;
   grid-template-columns: auto auto;
-  gap: 10px;
+  gap: 0.5rem;
   background-color: #1f8f0d;
   color: orange;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  border-radius: 0.8rem;
   padding: 1.5rem;
-  gap: 30px;
+  gap: 1.5rem;
 }
 
 .option {
   font-family: "Roboto", sans-serif;
   cursor: pointer;
-  padding: 1rem 6rem;
+  padding: 1rem 5rem;
   background-color: white;
   border-radius: 2rem;
   color: black;
@@ -153,30 +157,46 @@ input {
 .option:hover {
   background-color: rgb(77, 74, 74);
   color: white;
-  transition: 0.8s;
-}
-
-.button {
-  display: inline-block;
+  transition: 0.5s ease-out;
 }
 
 p.category {
-  padding: 20px;
-  font-size: 16px;
+  padding: 0.5rem 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  border-radius: 30px;
+}
+p.category:hover {
+  background-color: #000;
+  box-shadow: 4px 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 button {
   display: inline-block;
-
-  /* width: 50%; */
+  cursor: pointer;
   padding: 7px 20px;
   background-color: lavenderblush;
   border-radius: 30px;
   border: 0;
-  margin: auto;
+  margin: 0.25rem auto;
   font-size: 16px;
-  /* margin: 20px auto; */
   font-weight: 600;
   box-shadow: 10px 10px 10px darkslategray;
+}
+
+button:hover {
+  background-color: #1f8f0d;
+  color: white;
+}
+
+.logout:hover,
+.logout2:hover {
+  background-color: red;
+  color: white;
+}
+
+::placeholder {
+  color: #3b3a3a;
 }
