@@ -123,7 +123,9 @@ button[type="submit"] {
 }
 
 #quizStart {
-  display: flex;
+  /* display: flex; */
+  display: none;
+
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -204,6 +206,10 @@ button {
 button:hover {
   background-color: #1f8f0d;
   color: white;
+}
+
+.logout {
+  display: none;
 }
 
 .logout:hover,
