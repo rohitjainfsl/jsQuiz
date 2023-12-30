@@ -178,7 +178,6 @@ if (JSON.parse(localStorage.getItem("findLoggedInUser")) === false) {
   document.querySelector(".quiz").style.display = "flex";
   document.querySelector("#forms").style.display = "none";
   const catArr = JSON.parse(localStorage.getItem("categories"));
-  console.log(catArr);
 
   catArr.forEach((category) => {
     const para = document.createElement("p");
@@ -232,6 +231,9 @@ function quizStart(e, catArr) {
   //add click event on options
   optionsDiv.forEach((para) => {
     para.addEventListener("click", (event) => {
+      optionsDiv.forEach((opt) => {
+        opt.style.pointerEvents = "none";
+      });
       storeUserAnswer(event, userAnswers);
     });
   });
@@ -267,8 +269,6 @@ function quizStart(e, catArr) {
 
         currentQuestionNumber++;
         userAnswers.push(null);
-        console.log(currentQuestionNumber);
-
         nextQuestion();
       }
     } else timerDiv.innerHTML = --timer;
@@ -280,6 +280,9 @@ function quizStart(e, catArr) {
 // to display the question and its options
 
 function nextQuestion() {
+  optionsDiv.forEach((opt) => {
+    opt.style.pointerEvents = "all";
+  });
   questionDiv.innerHTML = temp[0].qna[currentQuestionNumber].q;
   if (temp[0].qna[currentQuestionNumber].type === "image") {
     removeImages();
@@ -287,13 +290,11 @@ function nextQuestion() {
       const image = document.createElement("img");
       image.src = temp[0].qna[currentQuestionNumber].op[index];
       para.append(image);
-      console.log("image");
     });
   } else {
     optionsDiv.forEach((para, index) => {
       para.innerHTML = temp[0].qna[currentQuestionNumber].op[index];
     });
-    console.log("string");
   }
 }
 
