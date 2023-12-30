@@ -40,8 +40,8 @@ input {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* width: 850px; */
   max-width: max-content;
+  min-width: 650px;
   padding: 1rem 0.5rem;
   border-radius: 10px;
   box-shadow: 10px 10px 10px darkslategray;
@@ -85,12 +85,17 @@ input {
 button[type="submit"] {
   margin-top: 0.5rem;
 }
-
+.mainTabs {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
 .tabs {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 0.25rem;
 }
 .tab {
   display: flex;
@@ -99,14 +104,22 @@ button[type="submit"] {
   color: white;
   border-radius: 10px;
   /* background-color: rebeccapurple; */
-  padding: 0.25rem 0.45rem;
+  padding: 0.25rem 0.5rem;
 }
 
 .tab:hover {
   background-color: darkgreen;
-  font-weight: 500;
+  /* font-weight: 500; */
   color: yellow;
   box-shadow: 10px 10px 10px darkslategray;
+}
+
+.tabLogout {
+  color: white;
+}
+.tabLogout:hover {
+  color: white;
+  background-color: red;
 }
 
 .quiz {

@@ -151,7 +151,7 @@ function loginUser(event) {
 //.........................................................................
 
 //Logout.......
-//LOGOUT BUTTON
+//Logout button below quiz after beginning of quizstart till score.
 let logout = document.createElement("button");
 logout.classList.add("logout");
 logout.innerHTML = "Logout";
@@ -161,18 +161,22 @@ logout.addEventListener("click", () => {
 });
 wrapper.append(logout);
 
+//tabLogout button for continous showing till logout
+let tabLogout = document.querySelector(".tabLogout");
+tabLogout.addEventListener("click", () => {
+  localStorage.setItem("findLoggedInUser", false);
+  window.location.href = "index.html";
+});
+
 //.........................................................................
 
 //Condition for swapping form and quiz.....................................
 if (JSON.parse(localStorage.getItem("findLoggedInUser")) === false) {
   document.querySelector("#forms").style.display = "flex";
   document.querySelector(".quiz").style.display = "none";
-  // console.log(JSON.parse(localStorage.getItem("findLoggedInUser")));
 } else {
-  // console.log(JSON.parse(localStorage.getItem("findLoggedInUser")));
   document.querySelector(".quiz").style.display = "flex";
   document.querySelector("#forms").style.display = "none";
-  // document.querySelector("#selectCategory").style.display = "flex";
   const catArr = JSON.parse(localStorage.getItem("categories"));
   console.log(catArr);
 
@@ -186,13 +190,7 @@ if (JSON.parse(localStorage.getItem("findLoggedInUser")) === false) {
     });
     document.querySelector("#selectCategory").append(para);
   });
-  // let logout = document.createElement("button");
-  // logout.classList.add("logout");
-  // logout.innerHTML = "Logout";
-  // logout.addEventListener("click", () => {
-  //   localStorage.setItem("findLoggedInUser", false);
-  //   window.location.href = "index.html";
-  // });
+
   wrapper.append(logout);
 }
 
@@ -210,7 +208,7 @@ if (localStorage.getItem("categories") === null) {
 }
 
 //....................Add categories to local storage...........................
-
+// add feature will add during node js code work, in both categories and question.
 function createCategories() {
   const categories = [
     "Sports",
