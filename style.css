@@ -4,199 +4,34 @@
   box-sizing: border-box;
   font-family: Roboto, sans-serif;
 }
-/* #quizStart{
-    display: none;
-} */
-
-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  gap: 0.05rem;
-  padding-bottom: 0.5rem;
-  height: 100vh;
-  background-color: goldenrod;
-  background: linear-gradient(greenyellow, yellow, green);
-}
-
-.heading h1 {
-  font-family: "Poppins", sans-serif;
-  font-size: 5rem;
-  font-weight: bold;
-  color: green;
-}
-
-input {
-  border-radius: 0.75rem;
-  border-style: solid;
-  padding: 0.75rem 4rem;
-  margin: 0.5rem;
-  box-shadow: 10px 10px 10px darkslategray;
-}
-
-#wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 650px;
-
-  padding: 1rem 0;
-  border-radius: 10px;
-  box-shadow: 10px 10px 10px darkslategray;
-  text-align: center;
-  color: white !important;
-  background-color: green;
-
-  /* gap: 30px; */
-}
-
-#forms {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.login {
-  box-shadow: 2px 2px 2px black;
-  border-style: solid;
-  border-color: darkgray;
-  border-radius: 1rem;
-  width: 100%;
-  padding: 1rem 2.5rem;
-}
-
-.register {
-  box-shadow: 2px 2px 2px black;
-
-  border-radius: 1rem;
-
-  border-color: darkgray;
-  border-style: solid;
-
-  width: 100%;
-
-  padding: 1rem 2.5rem;
-}
-button[type="submit"] {
-  margin-top: 0.5rem;
-}
-.quiz {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-}
-
-#selectCategory {
-  border-style: solid;
-  font-family: "Poppins", sans-serif;
-
-  border-color: #5f605f;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 2px 2px 2px black;
-  border-radius: 10px;
-  padding: 1rem;
-}
-
-.timer {
-  font-size: x-large;
-  color: black;
-  font-weight: 600;
-  font-size: 2rem;
-  text-align: center;
-}
-
-.question {
-  color: gold;
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-
-  font-size: 30px;
-  margin: 0.8rem;
-}
-
-#quizStart {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.options {
-  display: grid;
-  grid-template-columns: auto auto;
-  gap: 0.5rem;
-  background-color: #1f8f0d;
-  color: orange;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.8rem;
-  padding: 1.5rem;
-  gap: 1.5rem;
-}
-
-.option {
-  font-family: "Roboto", sans-serif;
-  cursor: pointer;
-  padding: 1rem 5rem;
-  background-color: white;
-  border-radius: 2rem;
-  color: black;
-  font-weight: bold;
-  box-shadow: 10px 10px 10px darkslategray;
-}
-
-.option:hover {
-  background-color: rgb(77, 74, 74);
-  color: white;
-  transition: 0.5s ease-out;
-}
-
-p.category {
-  padding: 0.5rem 1.5rem;
-  font-size: 1.25rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease-in;
-  border-radius: 30px;
-}
-p.category:hover {
-  background-color: #000;
-  box-shadow: 4px 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-button {
-  display: inline-block;
-  cursor: pointer;
-  padding: 7px 20px;
-  background-color: lavenderblush;
-  border-radius: 30px;
-  border: 0;
-  margin: 0.25rem auto;
-  font-size: 16px;
-  font-weight: 600;
-  box-shadow: 10px 10px 10px darkslategray;
-}
-
-button:hover {
-  background-color: #1f8f0d;
-  color: white;
-}
-
-.logout:hover,
-.logout2:hover {
-  background-color: red;
-  color: white;
-}
-
 ::placeholder {
   color: #3b3a3a;
 }
+.quiz{
+  display: none;
+}
+#wrapper{
+  display: flex;
+  flex-direction: column;
+  height: 100svh;
+  min-height: 100vh;
+}
+header{
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 3rem;
+  margin-bottom: 2rem;
+  box-shadow: 1px 2px 4px 3px rgba(0,0,0,0.6);
+}
+
+/* main{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 90svh;
+  min-height: 90vh;
+  margin: 0 auto;
+} */
