@@ -150,18 +150,6 @@ function loginUser(event) {
 }
 //.........................................................................
 
-//Logout.......
-//Logout button below quiz after beginning of quizstart till score.
-let logout = document.createElement("button");
-logout.classList.add("logout");
-logout.innerHTML = "Logout";
-logout.addEventListener("click", () => {
-  localStorage.setItem("findLoggedInUser", false);
-  window.location.href = "index.html";
-});
-wrapper.append(logout);
-
-//tabLogout button for continous showing till logout
 let tabLogout = document.querySelector(".tabLogout");
 tabLogout.addEventListener("click", () => {
   localStorage.setItem("findLoggedInUser", false);
@@ -189,8 +177,6 @@ if (JSON.parse(localStorage.getItem("findLoggedInUser")) === false) {
     });
     document.querySelector("#selectCategory").append(para);
   });
-
-  wrapper.append(logout);
 }
 
 //.........................................................................
@@ -232,14 +218,17 @@ function quizStart(e, catArr) {
   optionsDiv.forEach((para) => {
     para.addEventListener("click", (event) => {
       optionsDiv.forEach((opt) => {
+        para.style.backgroundColor = "blue";
         opt.style.pointerEvents = "none";
       });
-      storeUserAnswer(event, userAnswers);
+      setTimeout(() => {
+        console.log(temp[0].qna[currentQuestionNumber].a);
+        storeUserAnswer(event, userAnswers);
+      }, 1000);
     });
   });
 
   //GET QUESTIONS FROM APPROPRIATE CATEGORY
-
   temp = questions.filter((cat) => {
     return cat.category === e.target.innerHTML;
     //discussion : event.target.innerHTML value ?? where it come from
@@ -247,7 +236,6 @@ function quizStart(e, catArr) {
 
   document.querySelector("#selectCategory").style.display = "none";
   document.querySelector("#quizStart").style.display = "flex";
-  document.querySelector(".logout").style.display = "inline-block";
 
   //display first question and its options
   nextQuestion();
@@ -259,6 +247,7 @@ function quizStart(e, catArr) {
 
     if (timer === 1 || currentQuestionNumber >= temp[0].qna.length) {
       // are there more questions to display?
+
       if (currentQuestionNumber === temp[0].qna.length) {
         clearInterval(interval);
         document.querySelector("#quizStart").style.display = "none";
@@ -280,10 +269,17 @@ function quizStart(e, catArr) {
 // to display the question and its options
 
 function nextQuestion() {
-  optionsDiv.forEach((opt) => {
-    opt.style.pointerEvents = "all";
+  console.log(typeof temp[0].qna[currentQuestionNumber].q);
+  console.log("cqn", currentQuestionNumber);
+  optionsDiv.forEach((para) => {
+    optionsDiv.forEach((opt) => {
+      // para.style.backgroundColor = "green";
+      opt.style.pointerEvents = "all";
+    });
   });
+
   questionDiv.innerHTML = temp[0].qna[currentQuestionNumber].q;
+
   if (temp[0].qna[currentQuestionNumber].type === "image") {
     removeImages();
     optionsDiv.forEach((para, index) => {
@@ -310,7 +306,10 @@ function storeUserAnswer(event, userAnswers) {
   timerDiv.innerHTML = timer;
   currentQuestionNumber++;
 
-  if (currentQuestionNumber < temp[0].qna.length) nextQuestion();
+  if (currentQuestionNumber < temp[0].qna.length) {
+    // console.log(temp[0].qna.length);
+    nextQuestion();
+  }
 }
 
 //.............................................................................
@@ -330,6 +329,27 @@ function calculateScore(userAnswers, actualAnswers) {
   totalScore.innerHTML = answer;
   totalScore.style.fontSize = "2rem";
   document.querySelector("#wrapper").append(totalScore);
+  // reStart.style.display = "flex";
+
+  //Restart..........
+
+  let reStart = document.createElement("button");
+  reStart.classList.add("reStart");
+  reStart.innerHTML = "Restart";
+  reStart.style.display = "flex";
+  reStart.addEventListener("click", reStartFunc);
+  function reStartFunc() {
+    if (JSON.parse(localStorage.getItem("findLoggedInUser")) === true) {
+      document.querySelector("#selectCategory").style.display = "flex";
+      reStart.style.display = "none";
+      totalScore.style.display = "none";
+      currentQuestionNumber = 0;
+      userAnswers.length = 0;
+    }
+  }
+  wrapper.append(reStart);
+
+  //.........................................................................
 }
 
 //..............................................
@@ -341,12 +361,5 @@ function removeImages() {
     if (option.children.length > 0) option.children[0].remove();
   });
 }
-
-//.............................................................................
-
-//.............................................................................
-
-// document.querySelector("#quizStart").style.display = "none";
-// document.querySelector(".logout").style.display = "none";
 
 //.............................................................................
